@@ -1,0 +1,19 @@
+{
+  "name": "news-api",
+  "version": "1.0.0",
+  "description": "News Feed back-end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "repository": "https://github.com/julien-lav/the_next_web_api.git",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "ws": "^5.2.0"
+  }
+}

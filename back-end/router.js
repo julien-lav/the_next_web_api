@@ -1,6 +1,7 @@
 //External imports
 const express = require('express')
 const axios = require('axios')
+const bodyParser = require('body-parser')
 
 //Internal imports
 const router = express.Router()
@@ -10,7 +11,7 @@ let app = express()
 app.set('view engine', 'ejs') 
 
 
-
+app.use(bodyParser.json({type: 'application/json' }))
 
 router.route('/').get(function(request, response) {
     response.send('Hello World')
@@ -30,14 +31,20 @@ var request = axios
         .then((httpResponse) => response.send(httpResponse.data))
 })
 
-router.route('/comments/:acrticle(\d+)').get(function (request, response) {
+router.post('/', function(request, response) {
+    
+    console.log(req.body.description)
+})
+
+/*
+router.route('/comments/single/:(\d+)').get(function (request, response) {
     var url = 'https://newsapi.org/v2/top-headlines?sources=xinhua-net&apiKey=254bfa5fec6f4da49ae9a229157697a0'    
 
     var request = axios
         .get(url)
-        .then((httpResponse) => response.send(httpResponse.data.params))
+        .then((httpResponse) => response.send(httpResponse.data))
 })
-
+*/
 
 
 

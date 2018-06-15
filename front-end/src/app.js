@@ -5,17 +5,7 @@ import axios from 'axios'
 var results = axios
 			.get('http://127.0.0.1:8080/comments')
 			.then((response) => { return response.data.articles })
-/*
-var single = axios
-			.get('http://127.0.0.1:8080/comments/single/'+count-1+'')
-			.then((response) => { return response.data.articles[count-1] })
 
-single.then(function(result){
-		result.forEach(function(element){
-	console.log(element)
-	})
-})
-*/
 //console.log(typeof results)
 //console.log(results)
 
@@ -54,15 +44,12 @@ results.then(function(result){
 })
 
  
-
+// -> important
 window.singleShow = singleShow
-
-
 
 function singleShow(count) {
 
-
-	console.log('Ok !')
+	// console.log('Ok !')
 	console.log(count)
 	
 	var single = axios

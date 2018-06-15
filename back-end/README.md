@@ -13,3 +13,6 @@ Install the missing dependencies with
 
 You can run the server using 
 > npm start
+
+
+> node index.js

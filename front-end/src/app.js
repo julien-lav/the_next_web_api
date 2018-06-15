@@ -2,38 +2,36 @@
 import { messages } from './messages'
 import axios from 'axios'
 
-
 var results = axios
 			.get('http://127.0.0.1:8080/comments')
 			.then((response) => { return response.data.articles })
-
+/*
 var single = axios
-			.get('http://127.0.0.1:8080/comments/single/test')
-			.then((response) => { return response.data.articles[id] })
-
-
-console.log('On est dans le coin !!! =>' single)
+			.get('http://127.0.0.1:8080/comments/single/'+count-1+'')
+			.then((response) => { return response.data.articles[count-1] })
 
 single.then(function(result){
 		result.forEach(function(element){
 	console.log(element)
 	})
 })
-
+*/
 //console.log(typeof results)
 //console.log(results)
 
 var elt = document.getElementById("myList")
+var sgl = document.getElementById("mySingle")
 
-var count = 0
+var count = 1
+var tab = []
+
 
 results.then(function(result){
-	result = result.reverse()
+	//result = result.reverse()
 	result.forEach(function(element){
 
-		console.log(result)
 		elt.innerHTML += ''			
-		elt.innerHTML += '<h2 class="ui header">' + element.title + '</h2>'
+		elt.innerHTML += '<h2 class="ui header" id="myList">' + element.title + '</h2>'
 		
 		elt.innerHTML += '<em>' + element.author  +'</em><br />'
 		elt.innerHTML += '<p>' + element.description  +'</p><br />'
@@ -42,52 +40,59 @@ results.then(function(result){
 			elt.innerHTML += '<img  class="ui middle aligned tiny image" src="' + element.urlToImage +'" alt=""></img>'
 		}
 
-		elt.innerHTML += '<a style="margin:20px 0 0 20px;" href="http://127.0.0.1:8080/comments/single/'+ count +'"> Know more </a>'
-		elt.innerHTML += '<a style="margin:20px 0 0 20px;" href="'+ element.url +'"> Direct url </a><br /><br />'
+		elt.innerHTML += '<button class="ui secondary button" onclick="singleShow('+ count +')"> See more </button>'
 		
+		elt.innerHTML += '<a style="margin:20px 20px 0 20px;" href="http://127.0.0.1:8080/comments/single/'+ count +'"> See json/back </a><br /><br />'
+		
+		elt.innerHTML += '<a style="margin:20px 0 0 20px;" href="'+ element.url +'"> Direct url </a><br /><br />'
+
 		elt.innerHTML += ''		
 
 		count++
-		
+	
 	})
 })
-const websocket = new WebSocket('ws://localhost:8888')
 
-setInterval(function(){
+ 
 
-	var msg = 'Refresh'
-	websocket.send('message') 
-
-}, 30000);
+window.singleShow = singleShow
 
 
 
-
-/*
-var resultsSingle = axios
-			.get('http://127.0.0.1:8080/comments/single/'+ count + '')
-			.then((response) => { console.log(response) })
-*/
+function singleShow(count) {
 
 
+	console.log('Ok !')
+	console.log(count)
+	
+	var single = axios
+			.get('http://127.0.0.1:8080/comments/single/'+ (count))
+			.then((response) => {		
+		
+		//single
+		//	.then((response) => { console.log(response )})
 
+			elt.innerHTML = ''
+			sgl.innerHTML += '	<a href="index.html"><button class="ui blue button">Retour</button></a>'
+
+			//Toggle 
+			
+			sgl.innerHTML += '<h2 class="ui header">' + response.data.title + '</h2>'
+			sgl.innerHTML += '<em>' + response.data.author + '</em>'
+			sgl.innerHTML += '<p>' + response.data.description + '</p>'
+			
+			sgl.innerHTML += '	<br>'
+   	    	sgl.innerHTML += '	<hr>'
+   	    	sgl.innerHTML += '	<br>'
+   	    	
+			})   	    	
+
+}
 
 	
 
-// console.log('App.js loaded')
+ console.log('App.js loaded')
 
 // console.log(messages)
 
-// console.log('On est la =>' + results)
 
-// console.log(JSON.stringify(results))
-
-/*
-private getAccount(id: Id) : Account {
-    let account = Account.empty();
-    this.repository.get(id)
-        .then(res => account = res)
-        .catch(e => Notices.results(e));
-    return account;
-}
-*/

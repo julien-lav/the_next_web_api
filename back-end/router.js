@@ -2,6 +2,9 @@
 const express = require('express')
 const axios = require('axios')
 const bodyParser = require('body-parser')
+// const io = require('socket.io').listen(server)
+// const ent = require('ent') 
+// Permet de bloquer les caractères HTML (sécurité équivalente à htmlentities en PHP)
 
 //Internal imports
 const router = express.Router()
@@ -36,15 +39,23 @@ router.post('/', function(request, response) {
     console.log(req.body.description)
 })
 
-/*
-router.route('/comments/single/:(\d+)').get(function (request, response) {
+
+router.route('/comments/single/:id').get(function (request, response) {
     var url = 'https://newsapi.org/v2/top-headlines?sources=xinhua-net&apiKey=254bfa5fec6f4da49ae9a229157697a0'    
+
+    console.log(request.params)
+
+    var id = request.params.id.toString()
 
     var request = axios
         .get(url)
-        .then((httpResponse) => response.send(httpResponse.data))
+        .then((httpResponse) => response.send(httpResponse.data.articles[id-1]))
+
+
 })
-*/
+
+    
+
 
 
 
@@ -57,5 +68,3 @@ router.route('/myadmin').get(function(request, response) {
 
 
 module.exports = router
-
-

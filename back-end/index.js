@@ -50,6 +50,7 @@ wsServer.on('connection', (webSocket) => {
     webSocket.onmessage = (message) => {
         console.log('WebSocket :: got a new message', message.data)
     }
+
     clients.push(webSocket)
 })
 
